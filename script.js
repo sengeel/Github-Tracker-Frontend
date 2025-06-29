@@ -1,21 +1,31 @@
-function loginWithGitHub() {
-  window.location.href = "https://mybackend.com/login/github";
-}
+const BACKEND_URL = "https://github-tracker-backend.onrender.com"; // Replace with real backend
 
-window.onload = () => {
+document.getElementById("login-btn").addEventListener("click", () => {
+  window.location.href = `${BACKEND_URL}/login/github`;
+});
+
+window.onload = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token");
 
   if (token) {
-    fetch("https://mybackend.com/github/private", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("user-info").innerHTML = `
-        <p>Welcome back! Here are your private repos:</p>
-        <ul>${data.map(repo => `<li>${repo.name}</li>`).join('')}</ul>
-      `;
+    localStorage.setItem("token", token);
+    const res = await fetch(`${BACKEND_URL}/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
+    const user = await res.json();
+    document.getElementById("username").textContent = user.username || user.name;
+    document.getElementById("avatar").src = user.avatar_url;
+    document.getElementById("user-info").classList.remove("hidden");
+    document.getElementById("login-btn").style.display = "none";
   }
-}
+};
+
+document.getElementById("repos-btn").addEventListener("click", async () => {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BACKEND_URL}/github/private?token=${token}`);
+  const repos = await res.json();
+  document.getElementById("repos").textContent = JSON.stringify(repos, null, 2);
+});

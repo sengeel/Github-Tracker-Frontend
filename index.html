@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GitHub OAuth Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>GitHub Tracker</h1>
-    <button onclick="loginWithGitHub()">Login with GitHub</button>
-    <div id="user-info"></div>
+  <h1>GitHub Tracker</h1>
+  <button id="login-btn">Login with GitHub</button>
+
+  <div id="user-info" class="hidden">
+    <h2>Welcome, <span id="username"></span></h2>
+    <img id="avatar" src="" width="100" />
+    <p><button id="repos-btn">Fetch Private Repos</button></p>
+    <pre id="repos"></pre>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
