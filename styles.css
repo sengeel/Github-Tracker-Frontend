@@ -1,15 +1,98 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
+  color: #1f2937;
   text-align: center;
-  padding: 2rem;
+  padding: 3rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-top: 1.5rem;
+  color: #1d4ed8;
+}
+
+/* Buttons */
 button {
-  padding: 1rem 2rem;
+  padding: 0.8rem 2rem;
   font-size: 1rem;
+  font-weight: 600;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
 }
 
+button:hover {
+  background-color: #1e40af;
+  transform: scale(1.03);
+}
+
+/* Avatar */
+#avatar {
+  border-radius: 50%;
+  margin: 1rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Preformatted text */
+pre#repos {
+  background-color: #ffffff;
+  color: #374151;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  font-size: 0.95rem;
+}
+
+/* Hidden class */
 .hidden {
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  button {
+    width: 90%;
+  }
+
+  pre#repos {
+    font-size: 0.85rem;
+    padding: 0.8rem;
+  }
 }
