@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://github-tracker-backend.onrender.com"; // Replace with real backend
+const BACKEND_URL = "https://github-tracker-backend-5bu3.onrender.com"; // Replace with real backend
 
 document.getElementById("login-btn").addEventListener("click", () => {
   window.location.href = `${BACKEND_URL}/login/github`;
