@@ -8,14 +8,22 @@
 </head>
 <body>
   <h1>GitHub Tracker</h1>
+  
+  <!-- Login button visible initially -->
   <button id="login-btn">Login with GitHub</button>
 
+  <!-- User info section -->
   <div id="user-info" class="hidden">
     <h2>Welcome, <span id="username"></span></h2>
-    <img id="avatar" src="" width="100" />
-    <p><button id="repos-btn">Fetch Private Repos</button></p>
+    <img id="avatar" src="" alt="User Avatar" width="100" />
+    <p>
+      <button id="repos-btn">Fetch Private Repos</button>
+    </p>
     <pre id="repos"></pre>
   </div>
+
+  <!-- Logout button hidden initially -->
+  <button id="logout-btn" class="hidden">Logout</button>
 
   <script src="script.js"></script>
 </body>

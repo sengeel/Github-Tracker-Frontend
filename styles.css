@@ -1,98 +1,87 @@
-/* Reset & Base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb;
-  color: #1f2937;
+  font-family: Arial, sans-serif;
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 2rem;
+  background: #f0f0f0;
+  color: #24292f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
 }
 
-/* Heading */
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #111827;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #24292f;
 }
 
-h2 {
-  font-size: 1.75rem;
-  margin-top: 1.5rem;
-  color: #1d4ed8;
-}
-
-/* Buttons */
 button {
-  padding: 0.8rem 2rem;
+  padding: 0.75rem 2rem;
   font-size: 1rem;
-  font-weight: 600;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border: none;
+  background: #24292f;
+  color: white;
+  border-radius: 8px;
   margin-top: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #1e40af;
-  transform: scale(1.03);
+  background-color: #444c56;
 }
 
-/* Avatar */
-#avatar {
-  border-radius: 50%;
-  margin: 1rem 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Preformatted text */
-pre#repos {
-  background-color: #ffffff;
-  color: #374151;
-  text-align: left;
-  font-family: 'Courier New', Courier, monospace;
-  padding: 1rem;
-  margin: 2rem auto;
-  width: 90%;
-  max-width: 800px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  overflow-x: auto;
-  font-size: 0.95rem;
-}
-
-/* Hidden class */
 .hidden {
   display: none;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
+img#avatar {
+  border-radius: 50%;
+  margin-top: 1rem;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
 
-  h2 {
-    font-size: 1.3rem;
-  }
+pre {
+  text-align: left;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 500px;
+  overflow: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9rem;
+}
 
-  button {
-    width: 90%;
-  }
+#user-info {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  max-width: 520px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
 
-  pre#repos {
-    font-size: 0.85rem;
-    padding: 0.8rem;
-  }
+#username {
+  font-weight: 600;
+  color: #0366d6;
+}
+
+#repos-btn {
+  margin-bottom: 1rem;
+}
+
+#logout-btn {
+  /* Separate logout button styling */
+  background-color: #d73a49;
+}
+
+#logout-btn:hover {
+  background-color: #b31d28;
 }
