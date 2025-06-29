@@ -6,7 +6,7 @@ const reposBtn = document.getElementById("repos-btn");
 const reposEl = document.getElementById("repos");
 const logoutBtn = document.getElementById("logout-btn");
 
-const BACKEND_URL = "https://your-backend.onrender.com";
+const BACKEND_URL = "https://github-tracker-backend-5bu3.onrender.com";
 
 // Extract token from URL on first login
 const urlParams = new URLSearchParams(window.location.search);
