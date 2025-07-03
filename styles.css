@@ -1,87 +1,116 @@
+/* General layout */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  margin: 0;
   padding: 2rem;
-  background: #f0f0f0;
-  color: #24292f;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  max-width: 700px;
+  margin-inline: auto;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+/* Headings */
 h1 {
-  margin-bottom: 2rem;
-  font-weight: 700;
-  color: #24292f;
+  text-align: center;
+  color: #24292e;
 }
 
+h2 {
+  color: #0366d6;
+}
+
+/* Buttons */
 button {
-  padding: 0.75rem 2rem;
+  padding: 10px 20px;
+  margin-top: 10px;
   font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  background: #24292f;
+  font-weight: 500;
+  background-color: #2ea44f;
   color: white;
-  border-radius: 8px;
-  margin-top: 1rem;
-  transition: background-color 0.3s ease;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
-  background-color: #444c56;
+  background-color: #22863a;
 }
 
+/* Avatar image */
+img#avatar {
+  border-radius: 50%;
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* Repo display */
+pre#repos {
+  background-color: #eaecef;
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 1rem;
+  white-space: pre-wrap;
+}
+
+/* Status message */
+#status {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+
+/* Theme toggle UI */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Hidden elements */
 .hidden {
   display: none;
 }
 
-img#avatar {
-  border-radius: 50%;
-  margin-top: 1rem;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+/* DARK MODE STYLES */
+body.dark {
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
-pre {
-  text-align: left;
-  margin: 1rem auto;
-  padding: 1rem;
-  background: #fff;
-  border-radius: 8px;
-  max-width: 500px;
-  overflow: auto;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 0.9rem;
+body.dark h1,
+body.dark h2 {
+  color: #ffffff;
 }
 
-#user-info {
-  background: white;
-  padding: 1.5rem 2rem;
-  border-radius: 12px;
-  max-width: 520px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  margin-bottom: 1rem;
+body.dark button {
+  background-color: #444;
+  color: white;
 }
 
-#username {
-  font-weight: 600;
-  color: #0366d6;
+body.dark button:hover {
+  background-color: #666;
 }
 
-#repos-btn {
-  margin-bottom: 1rem;
+body.dark pre#repos {
+  background-color: #1e1e1e;
+  color: #dcdcdc;
 }
 
-#logout-btn {
-  /* Separate logout button styling */
-  background-color: #d73a49;
+body.dark #status {
+  color: #ff6b6b;
 }
 
-#logout-btn:hover {
-  background-color: #b31d28;
+body.dark img#avatar {
+  border-color: #555;
 }

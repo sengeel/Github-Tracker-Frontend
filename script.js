@@ -1,3 +1,4 @@
+// === DOM Elements ===
 const loginBtn = document.getElementById("login-btn");
 const userInfo = document.getElementById("user-info");
 const usernameEl = document.getElementById("username");
@@ -5,101 +6,105 @@ const avatarEl = document.getElementById("avatar");
 const reposBtn = document.getElementById("repos-btn");
 const reposEl = document.getElementById("repos");
 const logoutBtn = document.getElementById("logout-btn");
+const status = document.getElementById("status");
+const darkToggle = document.getElementById("dark-mode-toggle");
 
 const BACKEND_URL = "https://github-tracker-backend-5bu3.onrender.com";
 
-// Extract token from URL on first login
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has("token")) {
-  const jwt = urlParams.get("token");
-  localStorage.setItem("token", jwt);
-  window.history.replaceState({}, document.title, "/"); // clean URL
-  showUser();
-} else if (urlParams.has("error")) {
-  alert("GitHub authentication failed.");
-  console.error("GitHub login error:", urlParams.get("error"));
+// === DARK MODE TOGGLE ===
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+  darkToggle.checked = true;
 }
 
-// If token exists on page load, show user info
-if (localStorage.getItem("token")) {
-  showUser();
-}
+darkToggle.addEventListener("change", () => {
+  if (darkToggle.checked) {
+    document.body.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.body.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }
+});
 
-// Login button click → redirect to GitHub login via backend
+// === INITIAL CHECK ===
+showUser();
+
+// === LOGIN BUTTON ===
 loginBtn.onclick = () => {
   window.location.href = `${BACKEND_URL}/login/github`;
 };
 
-// Show user info from decoded JWT
-function showUser() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    userInfo.classList.add("hidden");
-    loginBtn.classList.remove("hidden");
-    logoutBtn.classList.add("hidden");
-    return;
-  }
-
+// === FETCH USER INFO ===
+async function showUser() {
   try {
-    const parts = token.split(".");
-    if (parts.length !== 3) throw new Error("Malformed JWT");
+    const res = await fetch(`${BACKEND_URL}/me`, {
+      method: "GET",
+      credentials: "include"
+    });
 
-    const payload = JSON.parse(atob(parts[1]));
-    console.log("Decoded JWT payload:", payload);
+    if (!res.ok) throw new Error("Not logged in");
 
-    usernameEl.textContent = payload.name || payload.sub;
-    avatarEl.src = payload.avatar_url;
+    const data = await res.json();
+    usernameEl.textContent = data.name || data.username;
+    avatarEl.src = data.avatar_url;
 
     userInfo.classList.remove("hidden");
     loginBtn.classList.add("hidden");
     logoutBtn.classList.remove("hidden");
-  } catch (e) {
-    console.error("Invalid JWT:", e);
-    localStorage.removeItem("token");
-    alert("Session expired or login failed. Please log in again.");
-    location.reload();
+  } catch (err) {
+    console.warn("User not authenticated:", err);
+    userInfo.classList.add("hidden");
+    loginBtn.classList.remove("hidden");
+    logoutBtn.classList.add("hidden");
   }
 }
 
-// Fetch private GitHub repos using token
+// === FETCH PRIVATE REPOS ===
 reposBtn.onclick = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) return;
+  reposBtn.disabled = true;
+  reposEl.textContent = "Loading...";
+  status.textContent = "";
 
   try {
     const res = await fetch(`${BACKEND_URL}/github/private`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      method: "GET",
+      credentials: "include"
     });
 
+    if (res.status === 401) {
+      status.textContent = "Session expired. Please log in again.";
+      window.location.href = "/";
+      return;
+    }
+
     if (!res.ok) throw new Error("Failed to fetch repos");
+
     const data = await res.json();
     reposEl.textContent = JSON.stringify(data, null, 2);
   } catch (e) {
-    reposEl.textContent = "Error fetching repositories.";
+    reposEl.textContent = "";
+    status.textContent = "Error fetching repositories.";
     console.error(e);
+  } finally {
+    reposBtn.disabled = false;
   }
 };
 
-// Logout: clear token, notify backend, reload
-if (logoutBtn) {
-  logoutBtn.onclick = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+// === LOGOUT BUTTON ===
+logoutBtn.onclick = async () => {
+  logoutBtn.disabled = true;
+  try {
+    await fetch(`${BACKEND_URL}/logout`, {
+      method: "POST",
+      credentials: "include"
+    });
 
-    try {
-      await fetch(`${BACKEND_URL}/logout`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    } catch (e) {
-      console.warn("Logout error:", e);
-    }
-
-    localStorage.removeItem("token");
-    location.reload();
-  };
-}
+    await new Promise((r) => setTimeout(r, 400));
+    window.location.href = "/";
+  } catch (e) {
+    console.warn("Logout error:", e);
+    alert("Logout failed. Please try again.");
+    logoutBtn.disabled = false;
+  }
+};

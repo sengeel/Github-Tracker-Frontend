@@ -8,22 +8,32 @@
 </head>
 <body>
   <h1>GitHub Tracker</h1>
-  
-  <!-- Login button visible initially -->
+
+  <!-- 🌗 Dark mode toggle -->
+  <label id="theme-toggle" class="theme-toggle">
+    <input type="checkbox" id="dark-mode-toggle" />
+    <span>🌙 Dark Mode</span>
+  </label>
+
+  <!-- Login button (shown only when logged out) -->
   <button id="login-btn">Login with GitHub</button>
 
-  <!-- User info section -->
+  <!-- User info section (shown after login) -->
   <div id="user-info" class="hidden">
     <h2>Welcome, <span id="username"></span></h2>
     <img id="avatar" src="" alt="User Avatar" width="100" />
+
     <p>
       <button id="repos-btn">Fetch Private Repos</button>
     </p>
+
     <pre id="repos"></pre>
+
+    <button id="logout-btn" class="hidden">Logout</button>
   </div>
 
-  <!-- Logout button hidden initially -->
-  <button id="logout-btn" class="hidden">Logout</button>
+  <!-- Status message area -->
+  <p id="status"></p>
 
   <script src="script.js"></script>
 </body>
